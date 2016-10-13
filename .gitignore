@@ -42,3 +42,6 @@ config.js
 
 # Config (TEMP)
 config.js
+
+# My own dev textfile
+.devinfo
