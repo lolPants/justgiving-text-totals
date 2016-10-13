@@ -29,7 +29,13 @@ app.on('ready', () => {
   // DEV MODE
   mainWindow.openDevTools()
 
-  console.log(jg.getEndpoint())
+  jg.getEndpoint('danmillered')
+    .then(result => {
+      console.log(result)
+    })
+    .catch(err => {
+      console.log(err)
+    })
 })
 
 // Once all windows have closed
