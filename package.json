@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager ./ TwitterUpload --arch all --platform win32 --asar --out .release --version 1.4.2 --overwrite",
-    "package-all": "electron-packager ./ TwitterUpload --all --asar --out .release --version 1.4.2 --overwrite"
+    "package": "electron-packager ./ JGTextTotals --arch all --platform win32 --asar --out .release --version 1.4.3 --overwrite",
+    "package-all": "electron-packager ./ JGTextTotals --all --asar --out .release --version 1.4.3 --overwrite"
   },
   "repository": {
     "type": "git",
