@@ -18,18 +18,19 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 480,
     height: 640,
-    minWidth: 360
+    minWidth: 360,
+    show: false
   })
 
   // Load window and show
-  mainWindow.loadURL('file://' + __dirname + '/app/index.html')
-  mainWindow.setMenu(null)
-  mainWindow.show()
+  //mainWindow.loadURL('file://' + __dirname + '/app/index.html')
+  //mainWindow.setMenu(null)
+  //mainWindow.show()
 
   // DEV MODE
-  mainWindow.openDevTools()
+  //mainWindow.openDevTools()
 
-  jg.getEndpoint('danmillered')
+  jg.getDonations('H4HeroDavidSeath')
     .then(result => {
       console.log(result)
     })
