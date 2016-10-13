@@ -17,6 +17,14 @@ app.on('ready', () => {
     height: 640,
     minWidth: 360
   })
+
+  // Load window and show
+  mainWindow.loadURL('file://' + __dirname + '/app/index.html')
+  mainWindow.setMenu(null)
+  mainWindow.show()
+
+  // DEV MODE
+  mainWindow.openDevTools()
 })
 
 // Once all windows have closed
