@@ -13,6 +13,31 @@ String.prototype.parseDate = function () {
   return (new Date(parseInt(this.split(/\(|\)/)[1].split("+")[0]))).getTime()
 }
 
+/**
+ * Sort object properties (only own properties will be sorted).
+ * @param {object} obj Object to sort properties
+ * @param {string|int} sortedBy 1 - Sort object properties by specific value.
+ * @returns {Array} Array of Items
+ */
+let sortProperties = function (obj, sortedBy) {
+  sortedBy = sortedBy || 1 // Default Sorting (First Key)
+
+  let sortable = []
+  let output = []
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      sortable.push([key, obj[key]])
+    }
+  }
+  sortable.sort(function (a, b) {
+    return -1 * (a[1][sortedBy] - b[1][sortedBy])
+  })
+  for (j in sortable) {
+    output.push(sortable[i][1])
+  }
+  return output
+}
+
 let JustGiving = function (appId) {
   if (appId === undefined || appId === "") {
     throw new Error('API Key Required')
@@ -52,7 +77,7 @@ let parseDonations = function (json) {
   for (i in donations) {
     donations[i].donationDate = donations[i].donationDate.parseDate()
   }
-  return donations
+  return sortProperties(donations, 'donationDate')
 }
 
 JustGiving.prototype.getEndpoint = function (endpoint) {
