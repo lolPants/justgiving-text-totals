@@ -1,0 +1,31 @@
+{
+  "name": "justgiving-text-totals",
+  "version": "0.1.0",
+  "description": "Updates a text file with JustGiving Donation Data",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager ./ TwitterUpload --arch all --platform win32 --asar --out .release --version 1.4.2 --overwrite",
+    "package-all": "electron-packager ./ TwitterUpload --all --asar --out .release --version 1.4.2 --overwrite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolPants/justgiving-text-totals.git"
+  },
+  "keywords": [
+    "justgiving",
+    "text",
+    "api",
+    "electron"
+  ],
+  "author": "Jack Baron <me@jackbaron.com> (https://jackbaron.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lolPants/justgiving-text-totals/issues"
+  },
+  "homepage": "https://github.com/lolPants/justgiving-text-totals#readme",
+  "devDependencies": {
+    "electron": "^1.4.3",
+    "electron-packager": "^8.1.0"
+  }
+}
