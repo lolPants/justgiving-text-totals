@@ -7,6 +7,9 @@
 // Define imports
 const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const fs = require('fs')
+const config = require(__dirname + '/config.js')
+const JustGiving = require(__dirname + '/src/justGiving.js')
+const jg = new JustGiving(config.appId)
 
 // Once electron has initialised
 app.on('ready', () => {
@@ -25,6 +28,8 @@ app.on('ready', () => {
 
   // DEV MODE
   mainWindow.openDevTools()
+
+  console.log(jg.getEndpoint())
 })
 
 // Once all windows have closed
