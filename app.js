@@ -7,6 +7,7 @@
 // Define imports
 const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const fs = require('fs')
+const storage = require('electron-json-storage')
 const config = require(__dirname + '/config.js')
 const JustGiving = require(__dirname + '/src/justGiving.js')
 const jg = new JustGiving(config.appId)
@@ -38,7 +39,7 @@ app.on('window-all-closed', () => {
   // PROCESS!
   app.quit()
 })
-  
+
 ipcMain.on('donation-data-req', (event, arg) => {
   jg.getDonations(arg)
     .then(arr => { event.sender.send('donation-data-res', arr) })
