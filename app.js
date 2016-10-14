@@ -34,7 +34,7 @@ app.on('ready', () => {
   mainWindow.show()
 
   // DEV MODE
-  mainWindow.openDevTools()
+  //mainWindow.openDevTools()
 })
 
 // Once all windows have closed
