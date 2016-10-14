@@ -8,3 +8,9 @@ body {
 .center {
   text-align: center;
 }
+.wide {
+  width: 100%;
+}
+.button-group {
+  margin-top: 10px;
+}
