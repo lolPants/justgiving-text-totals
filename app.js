@@ -80,7 +80,7 @@ ipcMain.on('set-file-path', (event, arg) => {
 ipcMain.on('get-file-path-req', (event, arg) => {
   storage.get('filePath', function(error, data) {
     if (error) throw error
-    
+    filePath = data.path
     event.sender.send('get-file-path-res', data.path)
   })
 })
@@ -89,7 +89,25 @@ ipcMain.on('get-file-path-req', (event, arg) => {
 setInterval( () => {
     if (!doUpdate) return
     if (filePath === undefined) return
-    console.log(filePath)
+    
+    storage.get('username', function(error, data) {
+      if (error) throw error
+      let username = data.username
+      
+      jg.getEndpoint(username)
+        .then(json => {
+          let currency = json.currencySymbol
+
+          jg.getDonations(username)
+            .then(donations => {
+              fs.writeFile(filePath, JSON.stringify(donations, null, 2), 'utf8', err => {
+                if (err) console.log(err)
+              })
+            })
+            .catch(console.log)
+        })
+        .catch(console.log)
+    })
   },
   3000
 )
