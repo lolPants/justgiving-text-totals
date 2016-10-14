@@ -14,4 +14,7 @@ const template = [{label:'Edit',submenu:[{role:'cut'},{role:'copy'},{role:'paste
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)
 
-console.log(fs.readdirSync(__dirname))
+ipcRenderer.on('donation-data-res', (event, arg) => {
+  console.log(arg) // prints "pong"
+})
+ipcRenderer.send('donation-data-req', 'danmillered')

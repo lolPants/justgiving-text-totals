@@ -23,20 +23,12 @@ app.on('ready', () => {
   })
 
   // Load window and show
-  //mainWindow.loadURL('file://' + __dirname + '/app/index.html')
-  //mainWindow.setMenu(null)
-  //mainWindow.show()
+  mainWindow.loadURL('file://' + __dirname + '/app/index.html')
+  mainWindow.setMenu(null)
+  mainWindow.show()
 
   // DEV MODE
-  //mainWindow.openDevTools()
-
-  jg.getDonations('H4HeroDavidSeath')
-    .then(result => {
-      console.log(result)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  mainWindow.openDevTools()
 })
 
 // Once all windows have closed
@@ -45,4 +37,9 @@ app.on('window-all-closed', () => {
   // THAT
   // PROCESS!
   app.quit()
+})
+  
+ipcMain.on('donation-data-req', (event, arg) => {
+  jg.getDonations(arg)
+    .then(arr => { event.sender.send('donation-data-res', arr) })
 })
