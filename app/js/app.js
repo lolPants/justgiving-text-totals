@@ -29,6 +29,19 @@ $("#btn-off").click(function () {
   $("#btn-on").removeClass('disabled')
 })
 
+$("#btn-output").click(function () {
+  if ($(this).hasClass('disabled')) return
+
+  let path = dialog.showSaveDialog({
+    title: "Output File",
+    filters: [
+      {name: 'Text Files', extensions: ['txt']},
+    ]
+  }, path => {
+    ipcRenderer.send('set-file-path', path)
+  })
+})
+
 ipcRenderer.on('donation-data-res', (event, arg) => {
   if (arg === 'error') {
     $("#btn-on").removeClass('disabled')

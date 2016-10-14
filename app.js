@@ -13,6 +13,7 @@ const JustGiving = require(__dirname + '/src/justGiving.js')
 const jg = new JustGiving(config.appId)
 
 let doUpdate = false
+let filePath = ""
 
 // Once electron has initialised
 app.on('ready', () => {
@@ -64,17 +65,21 @@ ipcMain.on('button-state-req', event => {
   event.sender.send('button-state-res', doUpdate)
 })
 
-ipcMain.on('enable-loop', (event) => {
+ipcMain.on('enable-loop', event => {
   doUpdate = true
 })
-ipcMain.on('disable-loop', (event) => {
+ipcMain.on('disable-loop', event => {
   doUpdate = false
+})
+ipcMain.on('set-file-path', (event, arg) => {
+  filePath = arg
 })
 
 // Main Loop
 setInterval( () => {
     if (!doUpdate) return
-    console.log('aaaa')
+    if (filePath === undefined) return
+    console.log(filePath)
   },
   3000
 )
