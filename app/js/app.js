@@ -14,6 +14,8 @@ const template = [{label:'Edit',submenu:[{role:'cut'},{role:'copy'},{role:'paste
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)
 
+let filePath;
+
 $("#btn-on").click(function () {
   if ($(this).hasClass('disabled')) return
 
@@ -36,11 +38,13 @@ $("#btn-output").click(function () {
 
   let path = dialog.showSaveDialog({
     title: "Output File",
+    defaultPath: filePath || null,
     filters: [
       {name: 'Text Files', extensions: ['txt']},
     ]
   }, path => {
     ipcRenderer.send('set-file-path', path)
+    filePath = path
   })
 })
 
@@ -61,12 +65,16 @@ ipcRenderer.on('donation-data-res', (event, arg) => {
 })
 
 $("#username").keyup(function() {
-  ipcRenderer.send('text-update', $(this).val())
+  ipcRenderer.send('set-username', $(this).val())
 })
 
-ipcRenderer.send('text-request-req', '')
-ipcRenderer.on('text-request-res', (event, arg) => {
+ipcRenderer.send('get-username-req', '')
+ipcRenderer.on('get-username-res', (event, arg) => {
   $("#username").val(arg.username)
+})
+ipcRenderer.send('get-file-path-req', '')
+ipcRenderer.on('get-file-path-res', (event, arg) => {
+  filePath = arg
 })
 
 ipcRenderer.send('button-state-req')

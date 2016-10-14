@@ -21,8 +21,10 @@ app.on('ready', () => {
   // (don't show it yet)
   mainWindow = new BrowserWindow({
     width: 480,
-    height: 640,
-    minWidth: 360,
+    height: 360,
+    minWidth: 420,
+    minHeight: 300,
+    icon: __dirname + '/app/img/app.ico',
     show: false
   })
 
@@ -49,16 +51,15 @@ ipcMain.on('donation-data-req', (event, arg) => {
     .catch(err => { event.sender.send('donation-data-res', 'error') })
 })
 
-ipcMain.on('text-request-req', (event, arg) => {
+ipcMain.on('set-username', (event, arg) => {
+  storage.set('username', { username: arg })
+})
+ipcMain.on('get-username-req', (event, arg) => {
   storage.get('username', function(error, data) {
     if (error) throw error
     
-    event.sender.send('text-request-res', data)
+    event.sender.send('get-username-res', data)
   })
-})
-
-ipcMain.on('text-update', (event, arg) => {
-  storage.set('username', { username: arg })
 })
 
 ipcMain.on('button-state-req', event => {
@@ -71,8 +72,17 @@ ipcMain.on('enable-loop', event => {
 ipcMain.on('disable-loop', event => {
   doUpdate = false
 })
+
 ipcMain.on('set-file-path', (event, arg) => {
   filePath = arg
+  storage.set('filePath', { path: arg })
+})
+ipcMain.on('get-file-path-req', (event, arg) => {
+  storage.get('filePath', function(error, data) {
+    if (error) throw error
+    
+    event.sender.send('get-file-path-res', data.path)
+  })
 })
 
 // Main Loop
