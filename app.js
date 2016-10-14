@@ -12,6 +12,8 @@ const config = require(__dirname + '/config.js')
 const JustGiving = require(__dirname + '/src/justGiving.js')
 const jg = new JustGiving(config.appId)
 
+let doUpdate = false
+
 // Once electron has initialised
 app.on('ready', () => {
   // Define the main window
@@ -57,3 +59,22 @@ ipcMain.on('text-request-req', (event, arg) => {
 ipcMain.on('text-update', (event, arg) => {
   storage.set('username', { username: arg })
 })
+
+ipcMain.on('button-state-req', event => {
+  event.sender.send('button-state-res', doUpdate)
+})
+
+ipcMain.on('enable-loop', (event) => {
+  doUpdate = true
+})
+ipcMain.on('disable-loop', (event) => {
+  doUpdate = false
+})
+
+// Main Loop
+setInterval( () => {
+    if (!doUpdate) return
+    console.log('aaaa')
+  },
+  3000
+)

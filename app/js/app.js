@@ -6,7 +6,7 @@
 
 // Define imports
 const {ipcRenderer, remote} = require('electron')
-const {Menu} = remote
+const {Menu, dialog} = remote
 const fs = remote.require('fs')
 
 // App Menu
@@ -15,14 +15,33 @@ const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)
 
 $("#btn-on").click(function () {
+  if ($(this).hasClass('disabled')) return
+
   ipcRenderer.send('donation-data-req', $("#username").val())
   $("#btn-on").addClass('disabled')
 })
 
+$("#btn-off").click(function () {
+  if ($(this).hasClass('disabled')) return
+
+  ipcRenderer.send('disable-loop')
+  $("#btn-off").addClass('disabled')
+  $("#btn-on").removeClass('disabled')
+})
+
 ipcRenderer.on('donation-data-res', (event, arg) => {
-  console.log(arg) // DEV
   if (arg === 'error') {
     $("#btn-on").removeClass('disabled')
+    dialog.showMessageBox({
+      type: "warning",
+      title: "Error",
+      message: "Invalid Fundraising Page ID",
+      buttons: []
+    })
+  } else {
+    console.log(arg)
+    $("#btn-off").removeClass('disabled')
+    ipcRenderer.send('enable-loop')
   }
 })
 
@@ -33,4 +52,15 @@ $("#username").keyup(function() {
 ipcRenderer.send('text-request-req', '')
 ipcRenderer.on('text-request-res', (event, arg) => {
   $("#username").val(arg.username)
+})
+
+ipcRenderer.send('button-state-req')
+ipcRenderer.on('button-state-res', (event, arg) => {
+  if (!arg) {
+    $("#btn-on").removeClass('disabled')
+    $("#btn-off").addClass('disabled')
+  } else {
+    $("#btn-on").addClass('disabled')
+    $("#btn-off").removeClass('disabled')
+  }
 })
