@@ -9,6 +9,10 @@
 // Require Dependencies
 const request = require('request')
 
+/**
+ * Date Parsing function
+ * @returns {integer} Parsed time in ms
+ */
 String.prototype.parseDate = function () {
   return (new Date(parseInt(this.split(/\(|\)/)[1].split("+")[0]))).getTime()
 }
@@ -38,6 +42,10 @@ let sortProperties = function (obj, sortedBy) {
   return output
 }
 
+/**
+ * Module Constructor
+ * @param {string} appId Application ID
+ */
 let JustGiving = function (appId) {
   if (appId === undefined || appId === "") {
     throw new Error('API Key Required')
@@ -46,6 +54,12 @@ let JustGiving = function (appId) {
   }
 }
 
+/**
+ * API Endpoint Requester
+ * @param {string} endpoint JustGiving API Endpoint
+ * @param {string} appId Application ID
+ * @returns {promise} Promise
+ */
 let getEndpoint = function (endpoint, appId) {
   return new Promise(function(fulfill, reject) {
     if (endpoint === undefined || endpoint === "") reject('Invalid Endpoint')
@@ -72,6 +86,11 @@ let getEndpoint = function (endpoint, appId) {
   })
 }
 
+/**
+ * Donation Parsing
+ * @param {object} json JSON Object to parse
+ * @returns {array} Array of sorted and parsed donations.
+ */
 let parseDonations = function (json) {
   let donations = json.donations
   for (i in donations) {
@@ -80,6 +99,11 @@ let parseDonations = function (json) {
   return sortProperties(donations, 'donationDate')
 }
 
+/**
+ * Request data from a JustGiving API Endpoint
+ * @param {string} endpoint API Endpoint to Query
+ * @returns {promise}
+ */
 JustGiving.prototype.getEndpoint = function (endpoint) {
   appId = this.appId
   return new Promise(function(fulfill, reject) {
@@ -89,6 +113,11 @@ JustGiving.prototype.getEndpoint = function (endpoint) {
   })
 }
 
+/**
+ * Get a parsed list of recent donations
+ * @param {string} endpoint Fundraiser page to query
+ * @returns {promise}
+ */
 JustGiving.prototype.getDonations = function (endpoint) {
   appId = this.appId
   return new Promise(function(fulfill, reject) {
@@ -100,4 +129,5 @@ JustGiving.prototype.getDonations = function (endpoint) {
   })
 }
 
+// Export Module
 module.exports = JustGiving
