@@ -14,3 +14,7 @@ body {
 .button-group {
   margin-top: 10px;
 }
+.btn.disabled, .btn[disabled] {
+    filter: blur(1px);
+    -webkit-filter: blur(1px);
+}

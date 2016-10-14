@@ -19,6 +19,7 @@ $("#btn-on").click(function () {
 
   ipcRenderer.send('donation-data-req', $("#username").val())
   $("#btn-on").addClass('disabled')
+    $("#username").attr('disabled', 'disabled')
 })
 
 $("#btn-off").click(function () {
@@ -27,6 +28,7 @@ $("#btn-off").click(function () {
   ipcRenderer.send('disable-loop')
   $("#btn-off").addClass('disabled')
   $("#btn-on").removeClass('disabled')
+    $("#username").removeAttr('disabled', 'disabled')
 })
 
 $("#btn-output").click(function () {
@@ -72,8 +74,10 @@ ipcRenderer.on('button-state-res', (event, arg) => {
   if (!arg) {
     $("#btn-on").removeClass('disabled')
     $("#btn-off").addClass('disabled')
+    $("#username").removeAttr('disabled', 'disabled')
   } else {
     $("#btn-on").addClass('disabled')
     $("#btn-off").removeClass('disabled')
+    $("#username").attr('disabled', 'disabled')
   }
 })
