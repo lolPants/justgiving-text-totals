@@ -88,7 +88,7 @@ ipcMain.on('get-file-path-req', (event, arg) => {
 // Main Loop
 setInterval( () => {
     if (!doUpdate) return
-    if (filePath === undefined) return
+    if (filePath === undefined || filePath === "") return
     
     storage.get('username', function(error, data) {
       if (error) throw error
@@ -100,7 +100,17 @@ setInterval( () => {
 
           jg.getDonations(username)
             .then(donations => {
-              fs.writeFile(filePath, JSON.stringify(donations, null, 2), 'utf8', err => {
+              let output = "";
+              donations = donations.reverse().slice(0, 5)
+
+              for (i in donations) {
+                let donation = donations[i]
+                let amount = (donation.amount === null) ? 'Anonymous' : `${currency}${(Math.round(donation.amount * 100)/100).toFixed(2)}`
+                
+                output += `${donation.donorDisplayName}: ${amount}   |   `
+              }
+
+              fs.writeFile(filePath, output, 'utf8', err => {
                 if (err) console.log(err)
               })
             })
