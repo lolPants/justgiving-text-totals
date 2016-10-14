@@ -43,4 +43,17 @@ app.on('window-all-closed', () => {
 ipcMain.on('donation-data-req', (event, arg) => {
   jg.getDonations(arg)
     .then(arr => { event.sender.send('donation-data-res', arr) })
+    .catch(err => { event.sender.send('donation-data-res', 'error') })
+})
+
+ipcMain.on('text-request-req', (event, arg) => {
+  storage.get('username', function(error, data) {
+    if (error) throw error
+    
+    event.sender.send('text-request-res', data)
+  })
+})
+
+ipcMain.on('text-update', (event, arg) => {
+  storage.set('username', { username: arg })
 })
