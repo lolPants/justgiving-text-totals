@@ -18,6 +18,8 @@ String.prototype.parseDate = function () {
   return (new Date(parseInt(this.split(/\(|\)/)[1].split("+")[0]))).getTime()
 }
 
+function orderKeys(a,b){var d,c=Object.keys(a).sort(function(b,c){return b<c?-1:b>c?1:0}),e={};for(d=0;d<c.length;d++)e[c[d]]=a[c[d]],delete a[c[d]];for(d=0;d<c.length;d++)a[c[d]]=e[c[d]];return a}
+
 /**
  * Sort object properties (only own properties will be sorted).
  * @param {object} obj Object to sort properties
@@ -25,27 +27,19 @@ String.prototype.parseDate = function () {
  * @returns {Array} Array of Items
  */
 let sortProperties = function (obj, sortedBy) {
-  // Default Sorting (First Key)
-  sortedBy = sortedBy || 1
+  let newObj = {}
+  let out = []
+  for (i in obj) {
+    donation = obj[i]
+    newObj[donation.donationDate] = obj[i]
+  }
 
-  // Define Arrays
-  let sortable = []
-  let output = []
-  // Sort
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      sortable.push([key, obj[key]])
-    }
+  let ordered = orderKeys(newObj)
+  for (j in ordered) {
+    out.push(ordered[j])
   }
-  sortable.sort(function (a, b) {
-    return -1 * (a[1][sortedBy] - b[1][sortedBy])
-  })
-  // Make into nicer array
-  for (j in sortable) {
-    output.push(sortable[i][1])
-  }
-  // Return
-  return output
+
+  return out 
 }
 
 /**
