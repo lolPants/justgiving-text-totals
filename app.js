@@ -119,5 +119,5 @@ setInterval( () => {
         .catch(console.log)
     })
   },
-  3000
+  10000
 )
