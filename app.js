@@ -133,10 +133,20 @@ setInterval( () => {
           // Get Recent Donations
           jg.getDonations(username)
             .then(donations => {
-              // Start an output handler
-              let output = "";
+              // Start output handlers
+              let outputRecent = ""
+              let outputMostRecent = ""
+
               // Limit to five most recent
               donations = donations.reverse().slice(0, 5)
+              
+              // Most Recent Donation Info
+              let donationRecent = donations[0]
+              let amountRecent = (donationRecent.amount === null) ? 'Anonymous' : `${currency}${(Math.round(donationRecent.amount * 100)/100).toFixed(2)}`
+              let messageRecent = donationRecent.message || "No Message"
+
+              // Set Most Recent
+              outputMostRecent += `${donationRecent.donorDisplayName}: ${amountRecent}  -  ${messageRecent}`
 
               // Loop over donations
               for (i in donations) {
@@ -145,11 +155,14 @@ setInterval( () => {
                 let amount = (donation.amount === null) ? 'Anonymous' : `${currency}${(Math.round(donation.amount * 100)/100).toFixed(2)}`
                 
                 // Append to output
-                output += `${donation.donorDisplayName}: ${amount}   |   `
+                outputRecent += `${donation.donorDisplayName}: ${amount}   |   `
               }
 
               // Write entire output
-              fs.writeFile(filePath + `/RecentDonations.txt`, output, 'utf8', err => {
+              fs.writeFile(filePath + `/RecentDonations.txt`, outputRecent, 'utf8', err => {
+                if (err) console.log(err)
+              })
+              fs.writeFile(filePath + `/MostRecentDonation.txt`, outputMostRecent, 'utf8', err => {
                 if (err) console.log(err)
               })
             })
