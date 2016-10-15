@@ -142,20 +142,22 @@ setInterval( () => {
               
               // Most Recent Donation Info
               let donationRecent = donations[0]
-              let amountRecent = (donationRecent.amount === null) ? 'Anonymous' : `${currency}${(Math.round(donationRecent.amount * 100)/100).toFixed(2)}`
+              let nameRecent = (donationRecent.donorDisplayName === "") ? "No Name" : donationRecent.donorDisplayName
+              let amountRecent = (donationRecent.amount === null) ? "Anonymous" : `${currency}${(Math.round(donationRecent.amount * 100)/100).toFixed(2)}`
               let messageRecent = donationRecent.message || "No Message"
 
               // Set Most Recent
-              outputMostRecent += `${donationRecent.donorDisplayName}: ${amountRecent}  -  ${messageRecent}`
+              outputMostRecent += `${nameRecent}: ${amountRecent}  -  ${messageRecent}`
 
               // Loop over donations
               for (i in donations) {
                 // Get data
                 let donation = donations[i]
-                let amount = (donation.amount === null) ? 'Anonymous' : `${currency}${(Math.round(donation.amount * 100)/100).toFixed(2)}`
+                let name = (donation.donorDisplayName === "") ? "No Name" : donation.donorDisplayName
+                let amount = (donation.amount === null) ? "Anonymous" : `${currency}${(Math.round(donation.amount * 100)/100).toFixed(2)}`
                 
                 // Append to output
-                outputRecent += `${donation.donorDisplayName}: ${amount}   |   `
+                outputRecent += `${name}: ${amount}   |   `
               }
 
               // Write entire output
