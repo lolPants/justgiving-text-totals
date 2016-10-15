@@ -14,14 +14,14 @@ const template = [{label:'Edit',submenu:[{role:'cut'},{role:'copy'},{role:'paste
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)
 
-let filePath;
+let filePath
 
 $("#btn-on").click(function () {
   if ($(this).hasClass('disabled')) return
 
   ipcRenderer.send('donation-data-req', $("#username").val())
   $("#btn-on").addClass('disabled')
-    $("#username").attr('disabled', 'disabled')
+  $("#username").attr('disabled', 'disabled')
 })
 
 $("#btn-off").click(function () {
@@ -30,7 +30,7 @@ $("#btn-off").click(function () {
   ipcRenderer.send('disable-loop')
   $("#btn-off").addClass('disabled')
   $("#btn-on").removeClass('disabled')
-    $("#username").removeAttr('disabled', 'disabled')
+  $("#username").removeAttr('disabled', 'disabled')
 })
 
 $("#btn-output").click(function () {
@@ -51,6 +51,7 @@ $("#btn-output").click(function () {
 ipcRenderer.on('donation-data-res', (event, arg) => {
   if (arg === 'error') {
     $("#btn-on").removeClass('disabled')
+    $("#username").removeAttr('disabled', 'disabled')
     dialog.showMessageBox({
       type: "warning",
       title: "Error",
