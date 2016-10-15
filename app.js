@@ -97,6 +97,11 @@ setInterval( () => {
       jg.getEndpoint(username)
         .then(json => {
           let currency = json.currencySymbol
+          let grandTotal = `${currency}${(Math.round(json.grandTotalRaisedExcludingGiftAid * 100)/100).toFixed(2)}`
+
+          fs.writeFile(filePath + `/GrandTotal.txt`, grandTotal, 'utf8', err => {
+            if (err) console.log(err)
+          })
 
           jg.getDonations(username)
             .then(donations => {
@@ -110,7 +115,7 @@ setInterval( () => {
                 output += `${donation.donorDisplayName}: ${amount}   |   `
               }
 
-              fs.writeFile(filePath, output, 'utf8', err => {
+              fs.writeFile(filePath + `/RecentDonations.txt`, output, 'utf8', err => {
                 if (err) console.log(err)
               })
             })

@@ -36,15 +36,14 @@ $("#btn-off").click(function () {
 $("#btn-output").click(function () {
   if ($(this).hasClass('disabled')) return
 
-  let path = dialog.showSaveDialog({
+  console.log(filePath)
+  let path = dialog.showOpenDialog({
     title: "Output File",
     defaultPath: filePath || null,
-    filters: [
-      {name: 'Text Files', extensions: ['txt']},
-    ]
+    properties: ['openDirectory']
   }, path => {
-    ipcRenderer.send('set-file-path', path)
-    filePath = path
+    ipcRenderer.send('set-file-path', path[0])
+    filePath = path[0]
   })
 })
 
