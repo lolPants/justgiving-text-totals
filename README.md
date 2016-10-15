@@ -15,3 +15,6 @@ And install the dependencies
 You'll need to provide a JustGiving App ID in `config.js`  
 
 When you're ready, you can package the app with `npm run package` or `npm run package-all`  
+
+## Usage
+Write This later k thanks

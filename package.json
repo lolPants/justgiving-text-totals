@@ -1,6 +1,6 @@
 {
   "name": "justgiving-text-totals",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Updates a text file with JustGiving Donation Data",
   "main": "app.js",
   "scripts": {
