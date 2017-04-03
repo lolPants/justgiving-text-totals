@@ -1,13 +1,13 @@
 {
   "name": "justgiving-text-totals",
-  "version": "0.6.5",
+  "version": "0.7.0",
   "description": "Updates a text file with JustGiving Donation Data",
-  "main": "app.js",
+  "main": "src/",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager ./ JGTextTotals --arch x64 --platform win32 --platform linux --asar --icon app/img/app --out .release --version 1.4.3 --overwrite",
-    "package-quick": "electron-packager ./ JGTextTotals --arch x64 --platform win32 --asar --icon app/img/app --out .release --version 1.4.3 --overwrite",
-    "package-all": "electron-packager ./ JGTextTotals --all --asar --icon app/img/app --out .release --version 1.4.3 --overwrite"
+    "package": "electron-packager ./ JGTextTotals --arch x64 --platform win32 --platform linux --asar --icon app/img/app --out .release --version 1.6.2 --overwrite",
+    "package-quick": "electron-packager ./ JGTextTotals --arch x64 --platform win32 --asar --icon app/img/app --out .release --version 1.6.2 --overwrite",
+    "package-all": "electron-packager ./ JGTextTotals --all --asar --icon app/img/app --out .release --version 1.6.2 --overwrite"
   },
   "repository": {
     "type": "git",
@@ -26,12 +26,13 @@
   },
   "homepage": "https://github.com/lolPants/justgiving-text-totals#readme",
   "devDependencies": {
-    "electron": "^1.4.3",
-    "electron-packager": "^8.1.0"
+    "electron-json-storage": "^3.0.4",
+    "eslint": "^3.19.0",
+    "jquery": "^3.2.1",
+    "request": "^2.81.0"
   },
   "dependencies": {
-    "electron-json-storage": "^2.0.1",
-    "jquery": "^3.1.1",
-    "request": "^2.75.0"
+    "electron": "^1.6.2",
+    "electron-packager": "^8.6.0"
   }
 }
