@@ -8,7 +8,7 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const fs = require('fs')
 const storage = require('electron-json-storage')
-const config = require(__dirname + '/config.js')
+const config = require(__dirname + '/config/config.js')
 const JustGiving = require(__dirname + '/src/justGiving.js')
 const jg = new JustGiving(config.appId)
 
